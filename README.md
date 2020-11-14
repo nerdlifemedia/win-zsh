@@ -60,7 +60,7 @@ You can install just WSL1 or upgrade to WSL2. I use the older WSL1 personally, b
 7. Run the following command at your Ubuntu bash terminal to create a symlink from your Ubuntu home (~) to your Windows user folder:
 
     ```bash
-    ln -s ~/win10 /mnt/c/Users/<your Windows username>
+    ln -s /mnt/c/Users/<your Windows username> ~/win10
     ```
 
 8. Congratulations! You can use bash from Windows. It's not a trick or a hacky Windows implementation. Real Linux bash, with access to all the great tooling from the Ubuntu/Debian environment. The possibilities are endless! But we're only getting started...
@@ -112,6 +112,18 @@ Here's the fun part. Let's get zsh installed and then spend hours fussing with i
 ## Finishing Touches
 
 The instructions above cover the necessary steps to get zsh working and looking pretty, but there are some more things you might want to do to get the most out of this setup.
+
+- Fix permnissions
+
+You can automatically mount your Windows drives under WSL with the metadata option that allows apps, like git, to use chmod and fix this issue.
+
+Edit `/etc/wsl.conf` (create it if it doesn't exist). Add the following:
+
+```
+[automount]
+options = "metadata"
+```
+Instead of rebooting, with WSL 2 you can exit out of all WSL 2 shells, and then run `wsl --shutdown` from powershell instead. When you start a new WSL shell, it'll automatically start the underlying VM again with your new config
 
 - Set up your `Ubuntu` terminal as the default for new terminal windows in Windows Terminal by setting the `defaultProfile` in `settings.json` to whatever the `guid` of your `Ubuntu` profile is.
 
